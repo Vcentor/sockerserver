@@ -3,12 +3,11 @@ HOMEDIR := $(shell pwd)
 OUTDIR  := $(HOMEDIR)/output
 
 # 可以修改为其他的名字
-APPNAME = "digital-human-server"
+APPNAME = "socketserver"
 
 # 初始化命令变量
-GOROOT  := $(HOMEDIR)/../../../baidu/go-env/go1-13-linux-amd64
 # 开发环境下不需要bcloud下载，直接指定开发环境下GOROOT路径，并注释BCLOUD下载依赖
-# GOROOT  := $(HOMEDIR)/../../../go/go1.13.5
+GOROOT  := $(HOMEDIR)/../../../go/go1.13.5
 GO      := $(GOROOT)/bin/go
 GOPATH  := $(shell $(GO) env GOPATH)
 GOMOD   := $(GO) mod
@@ -22,14 +21,10 @@ prepare: prepare-dep
 prepare-dep:
     # 设置git， 保证github mirror能够下载
 	git config --global http.sslVerify false
-	# 下载非Go依赖，依赖之前的BCLOUD文件
-	bcloud local -U
 set-env:
 	$(GO) env -w GONOPROXY=\*\*.baidu.com\*\*
 	$(GO) env -w GOPROXY=http://goproxy.baidu-int.com
 	$(GO) env -w GONOSUMDB=\*
-	$(GO) env -w CC="/opt/compiler/gcc-8.2/bin/gcc"
-	$(GO) env -w CXX="/opt/compiler/gcc-8.2/bin/g++"
 #complile阶段，执行编译命令,可单独执行命令: make compile
 compile:build
 build: set-env

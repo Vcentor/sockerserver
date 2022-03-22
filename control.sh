@@ -14,19 +14,13 @@ ACTS_DIR=$(cd $(dirname $file); pwd)
 
 #---------------------自定义配置区---------------------------#
 #程序名称
-APP_NAME="digital-human-server"
+APP_NAME="socketserver"
 #设置系统环境变量
 export GDP_MODE=release
 #执行命令
 CMD="${ACTS_DIR}/${APP_NAME}"
 # 增加加载库的地址
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${ACTS_DIR}/libs/pta/lib
-
-## bcron 目录
-#BCRON_DIR="${ACTS_DIR}/bcron"
-## start cmd
-#BCRON_CMD="bcron -u $BCRON_DIR/conf/bcron.conf -L $BCRON_DIR/log/bcron.log"
-
 
 #------------------------------------------------------------#
 
@@ -89,12 +83,6 @@ _killgroup() {
     #kill -TERM -"$1" 2>/dev/null || true
 }
 
-# 杀掉bcron进程
-_stopBcron() {
-  local bcron_pid=$(ps axo pid,cmd | grep bcron | grep -v "grep" | awk '{print $1}')
-  _kill ${bcron_pid}
-}
-
 control_start() {
     AR_APP_TOMAL="${ACTS_DIR}/conf/ws_server.toml"
     sed -i "s/\(listen_addr[^\"]*=[^\"]*\).*$/\1\"0.0.0.0:${PORT_MAIN}\"/g" AR_APP_TOMAL
@@ -104,10 +92,6 @@ control_start() {
         _warning "$ACTS is already running"
         exit 1
     fi
-
-    # cd ${BCRON_DIR}
-#    nohup ${BCRON_CMD} &>/dev/null &
-    # cd -
 
 #    sleep 2
 
@@ -147,7 +131,6 @@ foreground_start() {
 
 control_stop() {
     _killgroup
-    #_stopBcron
     sleep 5
 }
 
