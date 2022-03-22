@@ -27,6 +27,7 @@ set-env:
 	$(GO) env -w GONOSUMDB=\*
 #complile阶段，执行编译命令,可单独执行命令: make compile
 compile:build
+	$(GO) build
 build: set-env
     # 下载Go依赖
 	$(GOMOD)  download
@@ -63,7 +64,6 @@ package-bin:
 	if [ -d "conf"  ]; then cp -r conf $(OUTDIR)/bin/conf; fi
 	if [ -d "data"  ]; then cp -r data $(OUTDIR)/bin/data; fi
 	if [ -d "libs"  ]; then cp -r libs $(OUTDIR)/bin/libs; fi
-	tar -xzvf $(OUTDIR)/bin/libs/vta/work_dir/pyenv.tar.gz -C $(OUTDIR)/bin/libs/vta/work_dir/
 	if [ -d "lib"   ]; then cp -r lib $(OUTDIR)/lib; fi
 	if [ -f "control.sh" ]; then cp -r control.sh $(OUTDIR); fi
 	if [ -d "script"  ]; then cp -r script/* $(OUTDIR); fi
