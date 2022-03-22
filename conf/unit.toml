@@ -1,0 +1,11 @@
+# 百度ai平台API Key
+client_id = ""
+# 百度ai平台Secret Key
+client_secret = ""
+# 只能对话闲聊机器人id
+bot_id = ""
+# 请求聊天服务url
+# 沙盒环境域名
+unit_url = "https://aip.baidubce.com/rpc/2.0/unit/bot/chat"
+# 全国域名
+# unit_url = "https://unit-api.baidu.com/rpc/2.0/unit/service/chat"

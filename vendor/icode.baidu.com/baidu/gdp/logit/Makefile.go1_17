@@ -1,0 +1,2 @@
+GOROOT  := $(GO_1_17_HOME)
+include Makefile.base

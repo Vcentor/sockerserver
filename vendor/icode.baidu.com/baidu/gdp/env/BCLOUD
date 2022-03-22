@@ -1,0 +1,2 @@
+WORKROOT('../../../')
+CONFIGS('baidu/go-env/go1-16-linux-amd64@stable')

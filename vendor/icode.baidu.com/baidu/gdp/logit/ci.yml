@@ -1,0 +1,30 @@
+Global:
+    tool : build_submitter
+
+Default:
+    profile : [build,go1_14,go1_15,go1_17]
+
+Profiles:
+    - profile:
+      name : build
+      env : DECK_CENTOS6U3_K3
+      command : make -f Makefile
+      release : True
+
+    - profile:
+      name : go1_14
+      env : DECK_CENTOS6U3_K3
+      command : make -f Makefile.go1_14
+      release : True
+
+    - profile:
+      name : go1_15
+      env : DECK_CENTOS6U3_K3
+      command : make -f Makefile.go1_15
+      release : True
+
+    - profile:
+      name : go1_17
+      env : DECK_CENTOS6U3_K3
+      command : make -f Makefile.go1_17
+      release : True

@@ -1,0 +1,46 @@
+# shutdown默认等待时间5s
+shutdown_timeout = 5
+
+# websocket服务相关配置
+[ws_conf]
+# 服务默认监听端口
+listen_addr = "0.0.0.0:8989"
+
+# 最大连接数
+max_conn_num = 200
+
+# 写channel数据时默认缓冲
+write_msg_cap = 300
+
+# read_max_msg_len = 4096
+# tcp和websocket服务握手超时时间,默认10s
+http_timeout = 10
+
+# TSL协议整数文件
+cer_file = ""
+key_file = ""
+
+# 机房信息
+idc = "test"
+
+[tcp_conf]
+# 服务监听端口
+listen_addr = "0.0.0.0:8990"
+
+# 最大连接数
+max_conn_num = 200
+
+# 读写channel的缓冲值
+chan_cap = 300
+
+# 数据长度占用字节数
+len_msg_len = 2
+
+# 最大数据长度
+max_msg_len = 4096
+
+# 最小数据长度
+min_msg_len = 1
+
+# 字节序 是否为小端序否则为大端序
+little_endian = false
