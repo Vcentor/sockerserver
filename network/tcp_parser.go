@@ -5,9 +5,9 @@
 package network
 
 import (
-	"bufio"
 	"encoding/binary"
 	"errors"
+	"io"
 	"math"
 )
 
@@ -70,9 +70,10 @@ func (p *TCPParser) WithEndian(littleEndian bool) {
 
 // Read 读取信息
 func (p *TCPParser) Read(conn *TCPConn) ([]byte, error) {
-	reader := bufio.NewReader(conn)
-	bufMsgLen, err := reader.Peek(p.lenMsgLen)
-	if err != nil {
+	var buf = make([]byte, 4)
+	bufMsgLen := buf[:p.lenMsgLen]
+
+	if _, err := io.ReadFull(conn, bufMsgLen); err != nil {
 		return nil, err
 	}
 
@@ -104,12 +105,12 @@ func (p *TCPParser) Read(conn *TCPConn) ([]byte, error) {
 		return nil, errors.New("message too short")
 	}
 
-	msgData := make([]byte, uint32(p.lenMsgLen)+msgLen)
-	if _, err := reader.Read(msgData); err != nil {
+	msgData := make([]byte, msgLen)
+	if _, err := io.ReadFull(msgData); err != nil {
 		return nil, err
 	}
 
-	return msgData[p.lenMsgLen:], nil
+	return msgData, nil
 }
 
 // Write 写入信息
